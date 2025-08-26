@@ -1,0 +1,143 @@
+:root {
+    /* Dark Theme Colors */
+    --primary-color: #e0e0e0;
+    --secondary-color: #b0b0b0;
+    --background-color: #1a1a1a;
+    --card-bg-color: #222;
+    --link-color: #00aaff; /* A vibrant blue accent */
+    --hover-color: #4dcfff;
+    --border-color: #333;
+
+    /* Fonts */
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Merriweather', serif;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.5s ease;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+/* --- Navigation & Links --- */
+header {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-link {
+    font-weight: 400;
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 1rem;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--link-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* --- Content Sections --- */
+section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+/* --- Cards & Grid Layout --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+.glow:hover {
+    box-shadow: 0 0 20px 5px rgba(0, 170, 255, 0.5); /* A cool glow effect */
+}
+
+.card a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.card a:hover {
+    color: var(--hover-color);
+}
+
+/* --- Animations (for the "animative" part) --- */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.visible {
+    animation: slideUpFadeIn 0.8s forwards ease-out;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+    main {
+        padding: 1rem;
+    }
+    .grid-container {
+        gap: 20px;
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+}
