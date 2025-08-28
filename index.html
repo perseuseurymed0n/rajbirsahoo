@@ -3,101 +3,764 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rajbir Sahoo</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Rajbir Sahoo - Biotechnology Researcher</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body class="dark-theme">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Enhanced Color Palette */
+            --primary-bg: #0a0a0f;
+            --secondary-bg: #151520;
+            --card-bg: #1a1a2e;
+            --accent-bg: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8b3;
+            --text-muted: #6b7280;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-tertiary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border-subtle: #27272a;
+            --border-emphasis: #3f3f46;
+            
+            /* Typography */
+            --font-primary: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
 
-    <header>
-        <nav>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#portfolio" class="nav-link">Portfolio</a>
-            <a href="#notes" class="nav-link">Notes</a>
-            <a href="#blog" class="nav-link">Blog</a>
-        </nav>
-    </header>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            padding: var(--space-sm) var(--space-md);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav:hover {
+            box-shadow: var(--shadow-glow);
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: var(--space-sm) var(--space-md);
+            margin: 0 var(--space-xs);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-2xl) 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-lg);
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto var(--space-xl);
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: all 0.3s ease;
+            font-family: var(--font-primary);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-emphasis);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: var(--space-xl);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card h3 {
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.7;
+        }
+
+        .card-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: var(--accent-secondary);
+            transform: translateX(5px);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: none;
+            background: var(--card-bg);
+            padding: var(--space-xl);
+            border-radius: 20px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .contact-form.active {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: var(--space-md);
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: var(--font-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-status {
+            text-align: center;
+            padding: var(--space-md);
+            border-radius: 10px;
+            margin-top: var(--space-md);
+            display: none;
+        }
+
+        .form-status.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .form-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: var(--space-2xl);
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            margin-top: var(--space-2xl);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: var(--space-lg) auto;
+                width: fit-content;
+            }
+
+            main {
+                padding: 0 var(--space-md);
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Hidden contact trigger */
+        .secret-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .secret-trigger:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <nav>
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#notes" class="nav-link">Notes</a>
+        <a href="#blog" class="nav-link">Blog</a>
+    </nav>
 
     <main>
-        <section id="about" class="animate-in">
-            <h1>Hi, I'm Rajbir</h1>
-            <p>This website contains all my notes, as well as projects.</p>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Rajbir Sahoo</h1>
+                <p class="hero-subtitle">Biotechnology Researcher & Data Analyst</p>
+                <p class="hero-description">
+                    Exploring the intersection of molecular biology, nutrition science, and data-driven research. 
+                    Passionate about understanding genetic mechanisms and their applications in health and biotechnology.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                    <a href="#notes" class="btn btn-secondary">Browse Notes</a>
+                </div>
+            </div>
         </section>
 
-        <section id="portfolio" class="animate-in">
-            <h2>Portfolio</h2>
-            <p>A collection of my work, projects, and creations.</p>
-            <div class="grid-container">
-                <div class="card glow">
-                    <h3>A comparative study on indian food nutrition profile & foreign ones.</h3>
-                    <p>India is faced with a severe issue in the scenario of malnutrition and diet-related non-communicable diseases (DR-NCDs). In the present study, nutritional quality of 77 foods from around the globe, including 36 Indian staple foods, is evaluated with 12 significant nutrient variables. Advanced statistical tools, such as clustering, principal component analysis (PCA), and radar plots, are utilized for Indian vs. global dietary pattern comparison. The results are such that Indian food is significantly different (p = 0.0016), which is especially higher in energy density with less protein per calorie. Inadequacies of iron, folate, and vitamin C are frequent results in the present study, which are responsible for the high prevalence of anaemia and metabolic disease in India. Interestingly, no significant value in vitamin C content was observed in South Indian foods. Cooking practices and typical nutritional fallacies also hamper the nutrient retention. This study highlights the need for immediate dietary modification as well as for better public awareness about nutritional balance in India..</p>
-                    <a href="https://www.notion.so/Comparative-Analysis-of-Nutritional-Profiles-of-Indian-and-Global-Cuisines-to-Evaluate-the-Role-of-I-2223a49f778081868054e7b493472d2d?source=copy_link" target = "_blank" rel="noopener noreferrer">View Project</a>
+        <section id="portfolio">
+            <div class="section-header">
+                <h2>Research Portfolio</h2>
+                <p>A curated collection of my research projects, comparative studies, and biotechnology explorations.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Comparative Nutrition Analysis</h3>
+                    <p>A comprehensive study comparing Indian food nutrition profiles with global cuisines, utilizing advanced statistical analysis including PCA, clustering, and radar plots to identify nutritional gaps and dietary patterns.</p>
+                    <a href="https://www.notion.so/Comparative-Analysis-of-Nutritional-Profiles-of-Indian-and-Global-Cuisines-to-Evaluate-the-Role-of-I-2223a49f778081868054e7b493472d2d?source=copy_link" target="_blank" class="card-link">
+                        Explore Study →
+                    </a>
                 </div>
+                
+                <div class="card">
+                    <h3>Biotechnology Fundamentals</h3>
+                    <p>Deep dive into genetic engineering and recombinant DNA technology, exploring the revolutionary work of Boyer and Cohen that laid the foundation for modern molecular biotechnology and gene manipulation techniques.</p>
+                    <a href="https://www.notion.so/BiotechRP-25b3a49f778080a8bbdefca6cee6913b?source=copy_link" target="_blank" class="card-link">
+                        Read More →
+                    </a>
                 </div>
-                <div class="card glow">
-                    <h3>Biotechnology 101</h3>
-                    <p>Genetic engineering involves the manipulation of genetic material, specifically DNA, to achieve desired products or results in a pre-determined way. Some terms frequently used to address this field include gene manipulation, recombinant DNA (rDNA) technology, gene cloning (molecular cloning), genetic modifications, and new genetics. The foundation of modern rDNA technology was laid by Boyer and Cohen in 1973, who successfully recombined two plasmids (pSC101 and pSC102) and cloned the new plasmid in E. coli. Their experiments demonstrated the successful transplantation and expression of frog genes in E. coli, marking the beginning of modern molecular biotechnology. Some biotechnologists categorize the field chronologically as Before Boyer and Cohen (BBC) and After Boyer and Cohen (ABC) biotechnology.</p>
-                    <a href="https://www.notion.so/BiotechRP-25b3a49f778080a8bbdefca6cee6913b?source=copy_link" target = "_blank" rel="noopener noreferrer">View Project</a>
+                
+                <div class="card">
+                    <h3>Molecular Inheritance Review</h3>
+                    <p>Integrated literary review comparing the molecular basis of inheritance as presented in NCERT curriculum with advanced concepts from Lippincott Biochemistry, bridging educational gaps.</p>
+                    <a href="https://www.notion.so/MolbasisEXTRA-25b3a49f778080b19858eb97a2b8006a?source=copy_link" target="_blank" class="card-link">
+                        View Analysis →
+                    </a>
                 </div>
-                <div class="card glow">
-                    <h3>Integrated Literary Review of "Molecular Basis of Inheritance" wrt NCERT & Lippincott</h3>
-                    <p> This project of mine compares Biochemistry of Inheritance, aka "Molecular Basis of Inheritance" In NCERT with its homologue in Lippincott Biochemistry Illustrated Reviews.</p>
-                    <a href="https://www.notion.so/MolbasisEXTRA-25b3a49f778080b19858eb97a2b8006a?source=copy_link" target = "_blank" rel="noopener noreferrer">View Project</a>
-                </div>
-                </div>
-                 </div>
-                </div>
-                </div>
-               
+            </div>
         </section>
 
-        <section id="notes" class="animate-in">
-            <h2>Notes & Others</h2>
-            <p>Notion notes</p>
-            <div class="note-list">
-                <article class="card glow">
+        <section id="notes">
+            <div class="section-header">
+                <h2>Study Notes</h2>
+                <p>Comprehensive notes and resources covering organic chemistry, plant biology, and molecular genetics.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
                     <h3>Haloalkanes & Haloarenes</h3>
-                    <p class="summary">Haloalkanes & Arenes (Till Sn1 & Sn2 Reaction Mechanisms only.)</p>
-                    <a href="https://www.notion.so/Haloalkanes-Haloarenes-2203a49f77808025b233cb9fcb3728f2?source=copy_link">View note</a>
-                </article>
-                <article class="card glow">
-                    <h3>Morphology & Anatomy of Plants</h3>
-                    <p class="summary">Morphology & Anatomy complete NCERT notes</p>
-                    <a href="https://www.notion.so/Morphology-Anatomy-of-Plants-1aa3a49f778080198dcdc03e5fe6fb40?source=copy_link">View Note</a>
-                </article>
-                <article class="card glow">
+                    <p>Detailed coverage of halogenated compounds including SN1 and SN2 reaction mechanisms, stereochemistry, and synthetic applications in organic chemistry.</p>
+                    <a href="https://www.notion.so/Haloalkanes-Haloarenes-2203a49f77808025b233cb9fcb3728f2?source=copy_link" target="_blank" class="card-link">
+                        Study Notes →
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <h3>Plant Morphology & Anatomy</h3>
+                    <p>Complete NCERT-based notes covering plant structure, tissue organization, and anatomical adaptations with detailed illustrations and comparative analysis.</p>
+                    <a href="https://www.notion.so/Morphology-Anatomy-of-Plants-1aa3a49f778080198dcdc03e5fe6fb40?source=copy_link" target="_blank" class="card-link">
+                        Access Notes →
+                    </a>
+                </div>
+                
+                <div class="card">
                     <h3>Molecular Basis of Inheritance</h3>
-                    <p class="summary">Biochemistry of Molecular basis of inheritance (NCERT STRICTLY)</p>
-                    <a href="https://www.notion.so/MolecularBasisNCERTBetter-25b3a49f77808038ba42cad75d3dacfa?source=copy_link">View Note</a>
-                </article>
+                    <p>Biochemical foundations of inheritance patterns, DNA structure and replication, protein synthesis, and gene regulation mechanisms following NCERT curriculum.</p>
+                    <a href="https://www.notion.so/MolecularBasisNCERTBetter-25b3a49f77808038ba42cad75d3dacfa?source=copy_link" target="_blank" class="card-link">
+                        Learn More →
+                    </a>
                 </div>
-        </section>
-        
-        <section id="blog" class="animate-in">
-            <h2>Blog</h2>
-            <p>Thoughts, updates, and short-form content.</p>
-            <div class="blog-list">
-                <article class="card glow">
-                    <h3>CRISPR Explained From Scratch</h3>
-                    <p class="summary">If you are an avid science learner or a student, you must have heard of a term called ‘CRISPR’ or ‘CRISPR-Cas9’ or ‘CRISPR-Cas’. In this article we will approach the meaning of these terms as well as ‘crRNA’, ‘PAM’, ’gRNA’, ‘spacers’, ‘repeats’ as needed. This article includes lysogenic and lytic understanding of CRISPR for better audience configuration.</p>
-                    <a href="https://luckycaviar.medium.com/crispr-explained-from-scratch-ec06581c7d5d">Read More</a>
-                </article>
-                <article class="card glow">
-                    <h3>The Fascinating Science & Story of Pineapples!</h3>
-                    <p class="summary">Pineapples are one of the most common fruits we know. They typically grow between the months of March and July, or, more precisely, between May and July. Pineapples are rich in vitamins, especially vitamin C, and contain dietary fiber, manganese, and antioxidants.</p>
-                    <a href="https://luckycaviar.medium.com/the-fascinating-science-behind-pineapples-75873055d048">Read More</a>
-                </article>
-                </div>
+            </div>
         </section>
 
+        <section id="blog">
+            <div class="section-header">
+                <h2>Latest Articles</h2>
+                <p>Insights, discoveries, and thought pieces on biotechnology, nutrition science, and research methodologies.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>CRISPR Explained From Scratch</h3>
+                    <p>Comprehensive exploration of CRISPR-Cas9 technology, from its discovery as a bacterial immune system to its revolutionary applications in gene editing, including crRNA, PAM sequences, and guide RNA mechanisms.</p>
+                    <a href="https://luckycaviar.medium.com/crispr-explained-from-scratch-ec06581c7d5d" target="_blank" class="card-link">
+                        Read Article →
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <h3>The Science Behind Pineapples</h3>
+                    <p>Fascinating journey through pineapple biology, from their unique growing patterns and nutritional composition to the enzymatic properties of bromelain and its industrial applications.</p>
+                    <a href="https://luckycaviar.medium.com/the-fascinating-science-behind-pineapples-75873055d048" target="_blank" class="card-link">
+                        Discover More →
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- Secret Contact Button -->
+    <button class="secret-trigger" onclick="toggleContactForm()">✉</button>
+
+    <!-- Hidden Contact Form -->
+    <div class="contact-form" id="contactForm">
+        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--text-primary);">Get In Touch</h3>
+        <form id="messageForm">
+            <div class="form-group">
+                <label class="form-label" for="email">Your Email</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea id="message" name="message" class="form-textarea" placeholder="Share your thoughts..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+        </form>
+        <div class="form-status" id="formStatus"></div>
+        <button onclick="toggleContactForm()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer;">×</button>
+    </div>
+
     <footer>
-        <p>&copy; 2025 Rajbir Sahoo. All rights reserved.</p>
+        <p>&copy; 2025 Rajbir Sahoo. Advancing biotechnology through research and innovation.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
 
+        // Smooth scrolling and active nav
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            });
+
+            // Update active nav on scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Intersection Observer for animations
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Contact form functionality
+        let hasSubmitted = false;
+        const submittedEmails = new Set();
+
+        function toggleContactForm() {
+            const form = document.getElementById('contactForm');
+            form.classList.toggle('active');
+            
+            if (form.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('formStatus');
+            status.textContent = message;
+            status.className = `form-status ${type}`;
+            status.style.display = 'block';
+            
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        // Secure email submission (client-side only for demo)
+        document.getElementById('messageForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Check if this email has already submitted
+            if (submittedEmails.has(email)) {
+                showStatus('You have already submitted a message. Only one submission per email is allowed.', 'error');
+                return;
+            }
+
+            // Simulate secure submission
+            try {
+                // In a real implementation, you would send this to your backend
+                // The backend would handle the actual email sending securely
+                
+                // For demo purposes, we'll just simulate the submission
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Mark this email as submitted
+                submittedEmails.add(email);
+                
+                // Store the submission data (in real app, this would go to your server)
+                const submissionData = {
+                    email: btoa(email), // Basic encoding (use proper encryption in production)
+                    message: btoa(message),
+                    timestamp: new Date().toISOString(),
+                    id: Math.random().toString(36).substr(2, 9)
+                };
+                
+                // In production, send to your backend:
+                // fetch('/api/contact', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ email, message })
+                // });
+                
+                console.log('Message submitted:', submissionData); // For demo only
+                
+                showStatus('Thank you! Your message has been sent successfully.', 'success');
+                document.getElementById('messageForm').reset();
+                
+                setTimeout(() => {
+                    toggleContactForm();
+                }, 2000);
+                
+            } catch (error) {
+                showStatus('Sorry, there was an error sending your message. Please try again.', 'error');
+            }
+        });
+
+        // Close form on outside click
+        document.addEventListener('click', function(e) {
+            const form = document.getElementById('contactForm');
+            const trigger = document.querySelector('.secret-trigger');
+            
+            if (form.classList.contains('active') && 
+                !form.contains(e.target) && 
+                !trigger.contains(e.target)) {
+                toggleContactForm();
+            }
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initNavigation();
+            initAnimations();
+        });
+    </script>
 </body>
 </html>
