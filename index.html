@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rajbir Sahoo</title>
+    <title>Rajbir Sahoo - Research Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -99,8 +99,8 @@
             top: var(--space-lg);
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(26, 26, 46, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--border-subtle);
             border-radius: 50px;
             padding: var(--space-sm) var(--space-md);
@@ -110,6 +110,7 @@
 
         nav:hover {
             box-shadow: var(--shadow-glow);
+            background: rgba(26, 26, 46, 0.95);
         }
 
         .nav-link {
@@ -121,11 +122,42 @@
             transition: all 0.3s ease;
             font-weight: 500;
             font-size: 0.9rem;
+            position: relative;
         }
 
         .nav-link:hover, .nav-link.active {
             color: var(--text-primary);
             background: rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 1001;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 0.1s ease;
         }
 
         /* Main Content */
@@ -166,13 +198,20 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: var(--space-lg);
             line-height: 1.1;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); }
         }
 
         .hero-subtitle {
             font-size: 1.5rem;
             color: var(--text-secondary);
             margin-bottom: var(--space-xl);
-            font-weight: 300;
+            font-weight: 400;
+            font-style: italic;
         }
 
         .hero-description {
@@ -188,6 +227,7 @@
             gap: var(--space-md);
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: var(--space-xl);
         }
 
         .btn {
@@ -199,9 +239,26 @@
             display: inline-flex;
             align-items: center;
             gap: var(--space-sm);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: var(--font-primary);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
@@ -210,18 +267,23 @@
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(26, 26, 46, 0.5);
             color: var(--text-secondary);
             border: 2px solid var(--border-emphasis);
+            backdrop-filter: blur(10px);
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px) scale(1.02);
         }
 
         .btn-primary:hover {
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
         }
 
         /* Cards */
@@ -240,6 +302,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .card::before {
@@ -254,8 +317,20 @@
             transition: transform 0.3s ease;
         }
 
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.02), rgba(139, 92, 246, 0.02));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent-primary);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
@@ -264,17 +339,25 @@
             transform: scaleX(1);
         }
 
+        .card:hover::after {
+            opacity: 1;
+        }
+
         .card h3 {
             color: var(--text-primary);
             font-size: 1.4rem;
             margin-bottom: var(--space-md);
             font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
         .card p {
             color: var(--text-secondary);
             margin-bottom: var(--space-lg);
             line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
 
         .card-link {
@@ -285,11 +368,22 @@
             align-items: center;
             gap: var(--space-sm);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
 
         .card-link:hover {
             color: var(--accent-secondary);
             transform: translateX(5px);
+        }
+
+        .card-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover::after {
+            transform: translateX(3px);
         }
 
         /* Section Headers */
@@ -303,6 +397,19 @@
             font-weight: 700;
             margin-bottom: var(--space-md);
             color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
         }
 
         .section-header p {
@@ -312,78 +419,58 @@
             margin: 0 auto;
         }
 
-        /* Contact Form */
-        .contact-form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: none;
-            background: var(--card-bg);
-            padding: var(--space-xl);
+        /* Status badges for unpublished works */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
             border-radius: 20px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .contact-form.active {
-            display: block;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-group {
-            margin-bottom: var(--space-lg);
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: var(--space-sm);
-            color: var(--text-primary);
+            font-size: 0.8rem;
             font-weight: 500;
+            margin-bottom: var(--space-md);
         }
 
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: var(--space-md);
-            background: var(--secondary-bg);
-            border: 2px solid var(--border-subtle);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-family: var(--font-primary);
+        .status-badge.draft {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .status-badge.in-progress {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-tertiary);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
             transition: all 0.3s ease;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .form-textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        .form-status {
-            text-align: center;
-            padding: var(--space-md);
-            border-radius: 10px;
-            margin-top: var(--space-md);
-            display: none;
-        }
-
-        .form-status.success {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .form-status.error {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .back-to-top:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: var(--shadow-glow);
         }
 
         /* Footer */
@@ -393,6 +480,29 @@
             border-top: 1px solid var(--border-subtle);
             color: var(--text-muted);
             margin-top: var(--space-2xl);
+            background: var(--secondary-bg);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-primary);
         }
 
         /* Mobile Responsive */
@@ -404,6 +514,9 @@
                 transform: none;
                 margin: var(--space-lg) auto;
                 width: fit-content;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             main {
@@ -423,33 +536,66 @@
             .hero-content h1 {
                 font-size: 3rem;
             }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
         }
 
-        /* Hidden contact trigger */
-        .secret-trigger {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 50%;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-            z-index: 1001;
+        @media (max-width: 480px) {
+            :root {
+                --space-lg: 1rem;
+                --space-xl: 1.5rem;
+                --space-2xl: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .card {
+                padding: var(--space-lg);
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
         }
 
-        .secret-trigger:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-glow);
+        /* Loading animation */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
     </style>
 </head>
-<body>
+<body class="loading">
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
+
     <div class="bg-animation">
         <div class="particles" id="particles"></div>
     </div>
@@ -459,14 +605,16 @@
         <a href="#portfolio" class="nav-link">Portfolio</a>
         <a href="#notes" class="nav-link">Notes</a>
         <a href="#blog" class="nav-link">Blog</a>
+        <a href="#unpublished" class="nav-link">Drafts</a>
     </nav>
 
     <main>
         <section id="hero">
             <div class="hero-content">
                 <h1>Rajbir Sahoo</h1>
+                <p class="hero-subtitle">Science is the poetry of reality.</p>
                 <p class="hero-description">
-                   Science is the poetry of reality.
+                    Exploring the intersection of biotechnology, molecular biology, and nutritional sciences through research, analysis, and scientific communication.
                 </p>
                 <div class="cta-buttons">
                     <a href="#portfolio" class="btn btn-primary">View My Work</a>
@@ -483,25 +631,25 @@
             <div class="cards-grid">
                 <div class="card">
                     <h3>Comparative Nutrition Analysis</h3>
-                    <p>India faces severe malnutrition and diet-related NCDs. A study of 77 global foods, including 36 Indian staples, using PCA, clustering, and radar plots.</p>
+                    <p>India faces severe malnutrition and diet-related NCDs. A comprehensive study of 77 global foods, including 36 Indian staples, utilizing PCA, clustering analysis, and radar plots to evaluate nutritional profiles and dietary patterns.</p>
                     <a href="https://just-background-eaa.notion.site/Comparative-Analysis-of-Nutritional-Profiles-of-Indian-and-Global-Cuisines-to-Evaluate-the-Role-of-I-2223a49f778081868054e7b493472d2d?source=copy_link" target="_blank" class="card-link">
-                        View Analysis →
+                        View Analysis
                     </a>
                 </div>
                 
                 <div class="card">
-                    <h3>Biotechnology Fundamentals from U. satyanarayan</h3>
-                    <p>Genetic engineering is the direct manipulation of DNA to achieve desired output. terms like gene cloning, recombinant DNA (rDNA) technology, or genetic modification describe this field.</p>
+                    <h3>Biotechnology Fundamentals</h3>
+                    <p>Comprehensive review of genetic engineering principles from U. Satyanarayan's work. Covering gene cloning, recombinant DNA (rDNA) technology, and genetic modification techniques with detailed molecular mechanisms.</p>
                     <a href="https://just-background-eaa.notion.site/BiotechRP-25b3a49f778080a8bbdefca6cee6913b?source=copy_link" target="_blank" class="card-link">
-                        Read More →
+                        Read More
                     </a>
                 </div>
                 
                 <div class="card">
                     <h3>Molecular Inheritance Review</h3>
-                    <p>Integrated literary review of concepts of biochemistry like DNA replication, mRNA transcription, protein translation compared from NCERT with lippincott biochemistry. </p>
+                    <p>Integrated literature review comparing biochemical concepts of DNA replication, mRNA transcription, and protein translation between NCERT curriculum and Lippincott Biochemistry textbook.</p>
                     <a href="https://just-background-eaa.notion.site/MolbasisEXTRA-25b3a49f778080b19858eb97a2b8006a?source=copy_link" target="_blank" class="card-link">
-                        Explore Review →
+                        Explore Review
                     </a>
                 </div>
             </div>
@@ -510,69 +658,62 @@
         <section id="notes">
             <div class="section-header">
                 <h2>Study Notes</h2>
-                <p>My notes and resources.</p>
+                <p>Comprehensive study materials and educational resources across various scientific disciplines.</p>
             </div>
             <div class="cards-grid">
                 <div class="card">
                     <h3>Haloalkanes & Haloarenes</h3>
-                    <p>NCERT based only notes of haloalkanes and haloarenes chapter.</p>
+                    <p>Complete NCERT-based notes covering nomenclature, preparation methods, physical properties, chemical reactions, and industrial applications of haloalkanes and haloarenes.</p>
                     <a href="https://just-background-eaa.notion.site/Haloalkanes-Haloarenes-2203a49f77808025b233cb9fcb3728f2?pvs=74" target="_blank" class="card-link">
-                        Study Notes →
+                        Study Notes
                     </a>
                 </div>
                 
                 <div class="card">
                     <h3>Plant Morphology & Anatomy</h3>
-                    <p>Complete NCERT-based notes with little out of syllabus for better understanding.</p>
+                    <p>Comprehensive NCERT-based notes enhanced with additional concepts for deeper understanding of plant structure, tissue organization, and anatomical adaptations.</p>
                     <a href="https://just-background-eaa.notion.site/Morphology-Anatomy-of-Plants-1aa3a49f778080198dcdc03e5fe6fb40?source=copy_link" target="_blank" class="card-link">
-                        Access Notes →
+                        Access Notes
                     </a>
                 </div>
 
-                  <div class="card">
+                <div class="card">
                     <h3>Evolution</h3>
-                    <p>NCERT-Only Class XII Biology Line by line REFORMAT.</p>
+                    <p>NCERT Class XII Biology evolution chapter reformatted for enhanced clarity. Covers evolutionary theory, evidence, mechanisms, and human evolution with detailed explanations.</p>
                     <a href="https://just-background-eaa.notion.site/EvolutionSpliced-25e3a49f7780801fbad5c280ae3e155f?source=copy_link" target="_blank" class="card-link">
-                        Access Notes →
-                    </a>
-                </div>
-                
-                 <div class="card">
-                    <h3>Evolution</h3>
-                    <p>NCERT-Only Class XII Biology Line by line REFORMAT.</p>
-                    <a href="https://just-background-eaa.notion.site/EvolutionSpliced-25e3a49f7780801fbad5c280ae3e155f?source=copy_link" target="_blank" class="card-link">
-                        Access Notes →
+                        Access Notes
                     </a>
                 </div>
 
                 <div class="card">
                     <h3>Photosynthesis</h3>
-                    <p>Photosynthesis notes NCERT based.</p>
+                    <p>Detailed NCERT-based notes on photosynthesis covering light reactions, Calvin cycle, factors affecting photosynthesis, and photorespiration mechanisms.</p>
                     <a href="https://just-background-eaa.notion.site/Photosynthesis-Class-11-16c3a49f77808066856bca2d176a5d0d?source=copy_link" target="_blank" class="card-link">
-                        Access Notes →
+                        Access Notes
                     </a>
                 </div>
 
-                   <div class="card">
-                    <h3>Microbes in Human Welfare </h3>
-                    <p>NCERT Spliced notes on MHW with summary.</p>
+                <div class="card">
+                    <h3>Microbes in Human Welfare</h3>
+                    <p>Comprehensive NCERT notes on beneficial microorganisms, their applications in agriculture, medicine, industry, and biotechnology with summary points.</p>
                     <a href="https://just-background-eaa.notion.site/Microbes-in-Human-Welfare-2633a49f7780802db674e6f9d0ac64bf?source=copy_link" target="_blank" class="card-link">
-                        Read Notes →
+                        Read Notes
                     </a>
                 </div>
-                   <div class="card">
-                    <h3>Human Health & Diseases </h3>
-                    <p>Human Health and diseases spliced notes (quick) </p>
+
+                <div class="card">
+                    <h3>Human Health & Diseases</h3>
+                    <p>Quick reference notes on human health and diseases covering immunity, infectious diseases, lifestyle diseases, and preventive measures.</p>
                     <a href="https://just-background-eaa.notion.site/Human-Health-Diseases-2633a49f778080dcb139db4419b4223e?source=copy_link" target="_blank" class="card-link">
-                        Read Notes →
+                        Read Notes
                     </a>
                 </div>
                 
                 <div class="card">
                     <h3>Molecular Basis of Inheritance</h3>
-                    <p>Strictly NCERT based molecular basis of inheritance biochemical basis of inheritance notes.</p>
+                    <p>Strictly NCERT-based comprehensive notes on DNA structure, replication, transcription, translation, and genetic code with biochemical details.</p>
                     <a href="https://just-background-eaa.notion.site/MolecularBasisNCERTBetter-25b3a49f77808038ba42cad75d3dacfa?source=copy_link" target="_blank" class="card-link">
-                        Read More →
+                        Read More
                     </a>
                 </div>
             </div>
@@ -581,52 +722,66 @@
         <section id="blog">
             <div class="section-header">
                 <h2>Latest Articles</h2>
-                <p>Insights, discoveries, discussions and research methodologies.</p>
+                <p>Insights, discoveries, and scientific communication on cutting-edge research and methodologies.</p>
             </div>
             <div class="cards-grid">
                 <div class="card">
                     <h3>CRISPR Explained From Scratch</h3>
-                    <p>If you are an avid science learner or a student, you must have heard of a term called ‘CRISPR’ or ‘CRISPR-Cas9’ or ‘CRISPR-Cas’. In this article we will approach the meaning of these terms as well as ‘crRNA’, ‘PAM’, ’gRNA’, ‘spacers’, ‘repeats’ as needed. This article includes lysogenic and lytic understanding of CRISPR for better audience configuration.</p>
+                    <p>A comprehensive guide to understanding CRISPR-Cas9 technology, covering crRNA, PAM sequences, gRNA, spacers, and repeats. Includes lysogenic and lytic cycle perspectives for complete understanding.</p>
                     <a href="https://luckycaviar.medium.com/crispr-explained-from-scratch-ec06581c7d5d" target="_blank" class="card-link">
-                        Read Article →
+                        Read Article
                     </a>
                 </div>
                 
                 <div class="card">
                     <h3>The Science Behind Pineapples</h3>
-                    <p>Pineapple's unique adaptation to having a longer ripe period, its enzymatics and defenses.</p>
+                    <p>Exploring pineapple's unique biochemical adaptations including extended ripening periods, enzymatic properties, and natural defense mechanisms from a molecular perspective.</p>
                     <a href="https://luckycaviar.medium.com/the-fascinating-science-behind-pineapples-75873055d048" target="_blank" class="card-link">
-                        Discover More →
+                        Discover More
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="unpublished">
+            <div class="section-header">
+                <h2>Unpublished Works</h2>
+                <p>Current research projects and drafts in various stages of development and review.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="status-badge draft">📝 Draft</div>
+                    <h3>Hormonal Fluctuations and Postpartum Mood Disorders</h3>
+                    <p>Investigation of dramatic endocrine shifts during the postpartum period and their profound effects on maternal mood. Analyzing the role of estradiol, progesterone, oxytocin, and prolactin in postpartum mental health outcomes.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="status-badge in-progress">🔬 In Progress</div>
+                    <h3>Dose-Dependent Therapeutic Effects of Acetaminophen and Antihistamines</h3>
+                    <p>Comprehensive review examining pharmacokinetics, pharmacodynamics, and biochemical metabolism of acetaminophen and antihistamines in human physiology with clinical implications.</p>
+                </div>
+
+                <div class="card">
+                    <div class="status-badge draft">📝 Draft</div>
+                    <h3>Defense Mechanisms in Prokaryotic Life Processes</h3>
+                    <p>Systematic review of Restriction-Modification (RM) systems and innate immunity mechanisms in bacteria. Focus on bacteriophage defense strategies and lysogenic cycle dynamics.</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Secret Contact Button -->
-    <button class="secret-trigger" onclick="toggleContactForm()">✉</button>
-
-    <!-- Hidden Contact Form -->
-    <div class="contact-form" id="contactForm">
-        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--text-primary);">Get In Touch</h3>
-        <form id="messageForm">
-            <div class="form-group">
-                <label class="form-label" for="email">Your Email</label>
-                <input type="email" id="email" name="email" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="message">Message</label>
-                <textarea id="message" name="message" class="form-textarea" placeholder="Share your thoughts..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-        </form>
-        <div class="form-status" id="formStatus"></div>
-        <button onclick="toggleContactForm()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer;">×</button>
-    </div>
-
     <footer>
-        <p>&copy; 2025 Rajbir Sahoo. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://luckycaviar.medium.com/" target="_blank" class="footer-link">Medium</a>
+                <a href="https://just-background-eaa.notion.site/" target="_blank" class="footer-link">Notion</a>
+                <a href="#hero" class="footer-link">Back to Top</a>
+            </div>
+            <p>&copy; 2025 Rajbir Sahoo. All rights reserved. Built with passion for science and discovery.</p>
+        </div>
     </footer>
+
+    <button class="back-to-top" id="backToTop">↑</button>
 
     <script>
         // Animated particles
@@ -645,7 +800,7 @@
             }
         }
 
-        // Smooth scrolling and active nav
+        // Smooth scrolling navigation
         function initNavigation() {
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('section');
@@ -656,14 +811,16 @@
                     const targetId = link.getAttribute('href').substring(1);
                     const targetSection = document.getElementById(targetId);
                     
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 });
             });
 
-            // Update active nav on scroll
+            // Update active nav link on scroll
             window.addEventListener('scroll', () => {
                 let current = '';
                 sections.forEach(section => {
@@ -699,104 +856,195 @@
             document.querySelectorAll('section').forEach(section => {
                 observer.observe(section);
             });
+
+            // Card stagger animation
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                cardObserver.observe(card);
+            });
         }
 
-        // Contact form functionality
-        let hasSubmitted = false;
-        const submittedEmails = new Set();
-
-        function toggleContactForm() {
-            const form = document.getElementById('contactForm');
-            form.classList.toggle('active');
+        // Scroll progress indicator
+        function initScrollProgress() {
+            const progressBar = document.querySelector('.scroll-progress-bar');
             
-            if (form.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            });
         }
 
-        function showStatus(message, type) {
-            const status = document.getElementById('formStatus');
-            status.textContent = message;
-            status.className = `form-status ${type}`;
-            status.style.display = 'block';
+        // Back to top button
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
             
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, 5000);
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         }
 
-        // Secure email submission (client-side only for demo)
-        document.getElementById('messageForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Enhanced typing effect for hero subtitle
+        function typeWriter() {
+            const text = "Science is the poetry of reality.";
+            const subtitle = document.querySelector('.hero-subtitle');
+            let i = 0;
             
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+            subtitle.textContent = '';
             
-            // Check if this email has already submitted
-            if (submittedEmails.has(email)) {
-                showStatus('You have already submitted a message. Only one submission per email is allowed.', 'error');
-                return;
+            function type() {
+                if (i < text.length) {
+                    subtitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                } else {
+                    subtitle.style.borderRight = 'none';
+                }
             }
-
-            // Simulate secure submission
-            try {
-                // In a real implementation, you would send this to your backend
-                // The backend would handle the actual email sending securely
-                
-                // For demo purposes, we'll just simulate the submission
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // Mark this email as submitted
-                submittedEmails.add(email);
-                
-                // Store the submission data (in real app, this would go to your server)
-                const submissionData = {
-                    email: btoa(email), // Basic encoding (use proper encryption in production)
-                    message: btoa(message),
-                    timestamp: new Date().toISOString(),
-                    id: Math.random().toString(36).substr(2, 9)
-                };
-                
-                // In production, send to your backend:
-                // fetch('/api/contact', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({ email, message })
-                // });
-                
-                console.log('Message submitted:', submissionData); // For demo only
-                
-                showStatus('Thank you! Your message has been sent successfully.', 'success');
-                document.getElementById('messageForm').reset();
-                
-                setTimeout(() => {
-                    toggleContactForm();
-                }, 2000);
-                
-            } catch (error) {
-                showStatus('Sorry, there was an error sending your message. Please try again.', 'error');
-            }
-        });
-
-        // Close form on outside click
-        document.addEventListener('click', function(e) {
-            const form = document.getElementById('contactForm');
-            const trigger = document.querySelector('.secret-trigger');
             
-            if (form.classList.contains('active') && 
-                !form.contains(e.target) && 
-                !trigger.contains(e.target)) {
-                toggleContactForm();
-            }
-        });
+            subtitle.style.borderRight = '2px solid #3b82f6';
+            type();
+        }
 
-        // Initialize everything
+        // Parallax effect for background
+        function initParallax() {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                
+                document.querySelector('.bg-animation').style.transform = 
+                    `translateY(${rate}px)`;
+            });
+        }
+
+        // Enhanced card interactions
+        function initCardInteractions() {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    cards.forEach(otherCard => {
+                        if (otherCard !== card) {
+                            otherCard.style.opacity = '0.7';
+                            otherCard.style.transform = 'scale(0.98)';
+                        }
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    cards.forEach(otherCard => {
+                        otherCard.style.opacity = '1';
+                        otherCard.style.transform = 'scale(1)';
+                    });
+                });
+            });
+        }
+
+        // Performance optimization
+        function optimizePerformance() {
+            // Debounce scroll events
+            let scrollTimeout;
+            const originalScrollHandler = window.onscroll;
+            
+            window.onscroll = () => {
+                if (scrollTimeout) {
+                    cancelAnimationFrame(scrollTimeout);
+                }
+                scrollTimeout = requestAnimationFrame(() => {
+                    if (originalScrollHandler) {
+                        originalScrollHandler();
+                    }
+                });
+            };
+
+            // Lazy load external links
+            const externalLinks = document.querySelectorAll('a[target="_blank"]');
+            externalLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Add small delay to improve perceived performance
+                    e.preventDefault();
+                    setTimeout(() => {
+                        window.open(link.href, '_blank');
+                    }, 100);
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
+            // Add loading class removal after a short delay
+            setTimeout(() => {
+                document.body.classList.remove('loading');
+            }, 100);
+
+            // Initialize all features
             createParticles();
             initNavigation();
             initAnimations();
+            initScrollProgress();
+            initBackToTop();
+            initParallax();
+            initCardInteractions();
+            optimizePerformance();
+            
+            // Start typing effect after page loads
+            setTimeout(typeWriter, 1000);
+
+            // Add first section to visible immediately
+            document.getElementById('hero').classList.add('visible');
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Pause animations when page is hidden
+                document.querySelectorAll('.particle').forEach(particle => {
+                    particle.style.animationPlayState = 'paused';
+                });
+            } else {
+                // Resume animations when page is visible
+                document.querySelectorAll('.particle').forEach(particle => {
+                    particle.style.animationPlayState = 'running';
+                });
+            }
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Scroll to top on Escape key
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
         });
     </script>
 </body>
